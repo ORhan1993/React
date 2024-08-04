@@ -1,81 +1,34 @@
 // index.js
 
-// Filename - index.js
 
 import React from "react";
-// import ReactDOM from 'react-dom/client';
-//import "./index.css";
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-
-// Filename - index.js
-
 import ReactDOM from "react-dom";
-
-class App extends React.Component {
-    state = { username: "", email: "" };
-
-    onFormSubmit = (event) => {
-        event.preventDefault();
-        this.setState({
-            username: "gfg123",
-            email: "abc@gfg.org",
-        });
-    };
-
-    render() {  
-        return (
-            <div
-                style={{
-                    margin: "auto",
-                    marginTop: "20px",
-                    textAlign: "center",
-                }}
-            >
-                <form onSubmit={this.onFormSubmit}>
-                    <label> Enter username: </label>
-                    <input
-                        type="text"
-                        value={this.state.username}
-                        onChange={(e) =>
-                            this.setState((prev) => ({
-                                ...prev,
-                                username: e.target.value,
-                            }))
-                        }
-                    />
-                    <br />
-                    <br />
-                    <label>Enter Email Id:</label>
-                    <input
-                        type="email"
-                        value={this.state.email}
-                        onChange={(e) =>
-                            this.setState((prev) => ({
-                                ...prev,
-                                email: e.target.value,
-                            }))
-                        }
-                    ></input>
-                    <br />
-                    <br />
-                    <input type="submit" value={"Submit"} />
-                </form>
-                <br />
-                <div>
-                    Entered Value: {this.state.username}
-                </div>
-            </div>
-        );
-    }
+// Component to be extracted
+function MenuItems(props) {
+	const item = props.item;
+	return <li>{item}</li>;
 }
-const root = ReactDOM.createRoot(
-    document.getElementById("root")
-);
-root.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
-);
 
+// Component that will return an
+// unordered list
+function Navmenu(props) {
+	const list = props.menuitems;
+	const updatedList = list.map((listItems) => {
+		return <MenuItems key={listItems.toString()} item={listItems} />;
+	});
 
+	return <ul>{updatedList}</ul>;
+}
+
+const menuItems1 = [1, 2, 3, 4, 5];
+const menuItems2 = [1, 2, 3, 4, 5, 6];
+const menuItems3 = [1, 2, 3, 4, 5, 6, 7];
+
+ReactDOM.render(
+	<div>
+		<Navmenu menuitems={menuItems1} />
+		<Navmenu menuitems={menuItems2} />
+        <Navmenu menuitems={menuItems3} />
+	</div>,
+	document.getElementById("root")
+);
